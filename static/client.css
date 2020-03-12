@@ -1,0 +1,137 @@
+body{
+  background-color: #92B7FE;
+}
+
+div .logo{
+	border-style: solid;
+	border-width: 2px;
+	background-color: white;
+	width: 340px;
+  	height: 400px;
+	float: left;
+	
+}
+
+div. login{
+	border-style: :solid;
+	border-width: 1px;
+	background-color: white;
+	width: 247;
+	height: 95;
+	margin-bottom: 5px;
+	float:right;
+
+}
+.loginForm{
+	border-style: solid;
+	height: 95px; 	
+	width: 250px;
+	
+	float:right;
+	background-color: white;
+	text-align: right;
+	label{
+		display: block;
+		float: right;
+	}
+	input{
+		display: block;
+		width: 100%;
+	}
+}
+
+.button {
+  width: 25%;
+  font-size: 10pt;
+  height: 23px;
+  float: right;
+  clear: both;
+  background-color: #E8E8E8	;
+  margin-top: 1px;
+}
+div .signUp{
+	text-align: center;
+	background-color: white;
+	width: 247;
+	height: 295;
+
+}
+.signUpForm{
+	margin-top: 5px;
+	font-size: 10pt;
+	border-style: solid;
+	width: 250px;
+	height: 295px;
+	float:right;
+	background-color: white;
+	text-align: right;
+	label{
+		display: block;
+		float: right;
+	}
+	input{
+		display: block;
+		margin-bottom: 4px;
+		margin-top: 4px;
+		width: 100%;
+	}
+}
+
+
+.inputdata{
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.content{
+	border: 1px solid black;
+	background: white;
+	padding: 20px;
+	margin-top: 10px;
+	left: 0;
+	right: 0;
+	top: 20px;
+	bottom: 0;
+	border-radius: 5px;
+}
+.refresh-button{
+	float: right;
+	margin-left: 40px;
+	margin-top: 0px;
+	width: 48px;
+	height: 48px;	
+	background-color: grey;
+	border: 1px;
+	}
+.refresh-button:active{
+	background-color: black;
+	}
+.p-messages{
+	background-color: white;
+	float: right;
+	overflow: scroll;
+	height: 200px;
+	width: 400px;
+}
+.accountArea{
+	text-align: right;
+	float: left;
+}
+.messages{
+	margin-left: 10%;
+	float: left;
+}
+.errorMessage{
+	color: red;
+	font-size: 12;
+}
+
+
+.tabcontent {
+  color: black;
+  display: none;
+ /* padding: 100px 20px;
+  height: 100%;*/
+  height: 50%
+  width: 100%;
+  float: left;
+}
