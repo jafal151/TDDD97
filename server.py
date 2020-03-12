@@ -134,7 +134,7 @@ def post_message():
     data = request.get_json()
     to = data['email']
     message = data['message']
-    print("post_message email:", to )
+    print("post_message email/////////////:", to )
     print("post_message message:", message )
 
     if message == None:
@@ -149,14 +149,16 @@ def post_message():
     return res
 
 @app.route('/messages_token', methods = ['GET'])
-def message_token():    
+def message_token():
     token = request.headers.get('token')
-    result = database_helper.messages_token(token)
 
-    if (result['success'] == True):
-        return jsonify({'success' : True, 'data' : result['data']});
+    result = database_helper.messages_token(token)
+    print("success tokenmessages:  ", result['success'])
+    if result['success']:
+        return jsonify({'success' : True, 'data' : result['data'], 'writers' : result['writer']});
     res = jsonify({'success' : False, 'message' : 'Something went wrong'})
     return res
+
 
 @app.route('/messages_email', methods = ['GET'])
 def message_email():

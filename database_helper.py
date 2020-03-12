@@ -161,6 +161,13 @@ def add_message(token, to, message):
 		email = check_logged_in(token)
 		if (email == None):
 			return False
+		if(to == None):
+			to = email[0]
+		cursor = get_db().execute("SELECT * FROM users WHERE email=?", [to])
+		user = cursor.fetchone()
+		cursor.close()
+		if (user == None):
+			return False
 		get_db().execute("INSERT INTO WallOfText (reciever, sender, message) VALUES(?,?,?)", [to, email[0], message])
 		get_db().commit()
 		return True
@@ -168,24 +175,29 @@ def add_message(token, to, message):
 		return False
 
 
+
 def messages_email(token, email):
 	try:
-		verify = check_logged_in(token)
-		if (verify == None):
-			return {'success' : False}
-		cursor = get_db().execute("SELECT message From WallOfText WHERE reciever=?", [email])
+		email = check_logged_in(token)
+		if (email == None):
+			return jsonify({'success' : False})
+		cursor = get_db().execute("SELECT message From WallOfText WHERE reciever=?", [email[0]])
 		messages = cursor.fetchall()
 		cursor.close()
+		cursor = get_db().execute("SELECT sender From WallOfText WHERE reciever=?", [email[0]])
+		senders = cursor.fetchall()
+		cursor.close()
 		if (len(messages) == 0):
-			return {'success' : False, 'data': 'No messages'}
-		return {'success' : True, 'data' : messages}
-	except:
+			return {'success' : False}
+		return {'success' : True, 'data' : messages, 'writer' : senders}
+	except Exception as ex:
+		print("message_email failure::::::", ex )
 		return {'success' : False}
+
 
 def messages_token(token):
 	try:
 		verify = check_logged_in(token)
-		print(verify)
 		if (verify == None):
 			return {'success' : False}
 
@@ -193,12 +205,15 @@ def messages_token(token):
 		messages = cursor.fetchall()
 		print(messages)
 		cursor.close()
+		cursor = get_db().execute("SELECT sender From WallOfText WHERE reciever=?", [verify[0]])
+		senders = cursor.fetchall()
+		cursor.close()
 		if (len(messages) == 0):
 			print("No MESSAGES FOUNDDDDD")
 			return {'success' : False, 'data': 'No messages'}
-		return {'success' : True, 'data' : messages}
-	except:
-		print("message verification failure")
+		return {'success' : True, 'data' : messages, 'writer' : senders}
+	except Exception as ex:
+		print("message verification failure::::::", ex )
 		return {'success' : False, 'data':'message verification failure'}
 
 

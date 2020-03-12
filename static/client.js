@@ -233,18 +233,40 @@ function searchUser(){
 
 
 function loadHomeMessages(){
-  console.log("Token", Token)
-  var returnCode = serverstub.getUserMessagesByToken(Token);
-  document.getElementById("homeMessageWall").innerHTML= null;
+  token= localStorage.getItem("token")
+  console.log("token:= ", token)
+  var xhr = new XMLHttpRequest();
 
-  if(returnCode.success){
-    var messages = returnCode.data;
-    document.getElementById("")
-    for (i = 0; i < messages.length; i++) {
-      document.getElementById("homeMessageWall").innerHTML += "<p>From: " + messages[i].writer + "<br>";
-      document.getElementById("homeMessageWall").innerHTML += messages[i].content + "<br></p>";
+  xhr.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200) {
+        var resp = JSON.parse(xhr.responseText);
+
+        if(resp.success) {
+          var text = "";
+          var size = resp.data.length;
+            if(resp.data.length < 15){
+
+               for(var i = size - 1; 0 <= i; i--){
+                  text += resp.writers[i] + ": " + resp.data[i] + "<br>";
+                }
+               }
+            else {
+                for(var i = size - 1 ; size - 15 <= i; i--){
+                  text += resp.writers[i] + ": " + resp.data[i] + "<br>";
+                  console.log(text)
+              }
+            
+            }
+              document.getElementById("homeMessageWall").innerHTML=text;
+          }
+          else{
+            console.log("Homemessage failure :(")
+       }
+      } 
     }
-  }
+  xhr.open("GET", "/messages_token", true);
+  xhr.setRequestHeader('token', token);
+  xhr.send();
 }
 
 function postUserMessage(){
